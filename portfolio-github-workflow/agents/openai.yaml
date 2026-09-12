@@ -1,0 +1,6 @@
+interface:
+  display_name: "作品集稳妥发布"
+  short_description: "稳妥修改视频作品集并发布到 GitHub Pages"
+  default_prompt: "Use $portfolio-github-workflow to update and safely publish my video portfolio."
+policy:
+  allow_implicit_invocation: true
