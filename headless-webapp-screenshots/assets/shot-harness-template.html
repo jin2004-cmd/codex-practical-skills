@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Screenshot Harness (local only, do not deploy)</title>
+<script>
+/* shot=1 disables every animation/transition so the capture is the final state.
+ * Must be injected before any stylesheet that defines the animations. */
+if (new URLSearchParams(location.search).get("shot")) {
+  document.write('<style>*,*::before,*::after{animation:none!important;transition:none!important}html,body,#app{opacity:1!important;transform:none!important;filter:none!important}</style>');
+}
+</script>
+<!-- TODO: point at the app's real stylesheet -->
+<link rel="stylesheet" href="../app/css/style.css">
+<script>
+/* ---- Demo state seed: runs BEFORE any app script so the app boots into it ----
+ * TODO: replace KEY and payload with the app's real storage key and schema. */
+(function () {
+  var q = new URLSearchParams(location.search);
+  var theme = q.get("theme") || "light";
+  var seed = {
+    settings: { theme: theme },
+    onboarded: true,               // prevents the welcome modal
+    /* TODO: realistic records, lists, logs... */
+    createdAt: new Date().toISOString()
+  };
+  localStorage.setItem("APP_STORAGE_KEY", JSON.stringify(seed));   // TODO: real key
+})();
+</script>
+</head>
+<body>
+<!-- TODO: copy the app's real body skeleton (root containers, canvas, modal nodes) -->
+<div id="app"></div>
+
+<!-- TODO: the app's real script tags, same order as production -->
+<script src="../app/js/store.js"></script>
+<script src="../app/js/app.js"></script>
+
+<script>
+/* ---- View selection after boot ---- */
+(function () {
+  var q = new URLSearchParams(location.search);
+  var view = q.get("view");
+  /* TODO: call the app's own view switch, e.g. App.ui.switchTab(view),
+   * and optionally trigger an async flow that must appear in the capture,
+   * e.g. App.ui.runPlan() — rely on --virtual-time-budget to let it finish. */
+})();
+</script>
+</body>
+</html>
