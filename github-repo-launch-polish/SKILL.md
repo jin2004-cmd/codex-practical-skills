@@ -1,13 +1,27 @@
 ---
 name: github-repo-launch-polish
-description: Turn a freshly pushed code repository into a discoverable, star-ready open-source project. Use when a repo has code but a bare README, no license, no screenshots, no topics, or when preparing a personal project for public exposure and portfolio use.
+description: Turn a code repository into a discoverable, star-ready open-source project. Use when a repo has a bare README, no license, no screenshots, or no topics — or when an existing README is already well-written and only needs exposure elements (badges, license, English section, star CTA) added without rewriting the author's voice.
 ---
 
 # GitHub Repo Launch Polish
 
 A repo with good code and a bare README gets no stars. Exposure on GitHub comes from search metadata (description, topics, English keywords) and from a README that proves the project works in five seconds.
 
-## README Anatomy (in order)
+## Two Modes — Pick First
+
+**Mode A: bare or weak README.** Rebuild using the README Anatomy below.
+
+**Mode B: README already well-written** (author's voice, honest metrics, real detail). Do NOT rewrite it — rewriting erases the voice that makes it credible. Only add exposure elements, surgically:
+
+1. Badge block right after the H1 (live demo, license, one fact badge like "14/14 tests passing").
+2. An `## English` summary section before the license/closing section.
+3. A one-line star CTA in a centered div at the very bottom.
+4. `LICENSE` file if missing.
+5. If the README lacks an online demo link but Pages is enabled, check the root tree for `index.html` and add the Pages URL.
+
+Everything else stays byte-identical. The diff should read as "additions only".
+
+## README Anatomy (in order, for Mode A)
 
 1. **Centered hero**: name, one-line slogan, what it is in one sentence, badges (live demo, license, stack, PRs welcome via shields.io `for-the-badge` style), quick nav links.
 2. **Live demo link** in the hero and again in quick start. A clickable product beats any description.
@@ -17,6 +31,15 @@ A repo with good code and a bare README gets no stars. Exposure on GitHub comes 
 6. **Features, quick start, tech stack, project structure, roadmap, contributing.**
 7. **English summary section**: one paragraph + demo link. GitHub search and most readers index on English; a Chinese-only README is invisible internationally.
 8. **Star call-to-action** at the bottom, one line, centered.
+
+## Batch Polishing Several Repos
+
+When polishing an owner's whole account:
+
+1. List all repos first (`search_repositories user:<name>`, non-minimal output) and record for each: has license, has topics, has homepage, star count, Pages enabled. Skip nothing silently.
+2. Do not forget the **profile README repo** (`<user>/<user>`) — it is the highest-traffic page on the account. Add new projects to its list and keep counts (number of skills, number of repos) in sync with reality.
+3. One commit per repo (README + LICENSE together), then hand the owner a single consolidated list of manual About/description/topics/website edits — connector tools cannot set them.
+4. When a description or README states a count ("4 skills", "five repos"), flag every place that count appears; adding a project invalidates all of them at once.
 
 ## Repository Metadata (manual, 2 minutes)
 
@@ -44,4 +67,5 @@ Text files push fine through connector/Contents-API style tools. **Binary files 
 - [ ] LICENSE present and linked from README
 - [ ] About description + website + topics set
 - [ ] Live demo link works from a logged-out / incognito browser
+- [ ] Profile README repo updated (new projects listed, counts in sync)
 - [ ] No secrets, personal data, employer names, or internal URLs anywhere in the tree (grep for them)
