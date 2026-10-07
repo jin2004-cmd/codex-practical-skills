@@ -1,7 +1,7 @@
 ---
 name: personal-secretary-memory
-description: Maintain or recover a user's dated personal-assistant memory and prepare a cross-assistant handoff. Use only for explicit memory updates, continuity recovery, or handoff work; ordinary career, video, website, or life tasks alone do not trigger it. Job-search-only facts belong to job-search-memory-copilot.
-version: 1.0.2
+description: Maintain or recover a user's dated personal-assistant memory and prepare a cross-assistant handoff. Use only for explicit memory updates, continuity recovery, or handoff work; ordinary career, video, website, or life tasks alone do not trigger it. Includes job-search tracking as one topic area; read references/job-search.md when applications, deadlines, or interviews are the subject.
+version: 1.1.0
 ---
 
 # Personal Secretary Memory
@@ -9,6 +9,7 @@ version: 1.0.2
 Support a long-running personal-secretary project through one factual memory source. The active vault and area are defined by the local project AGENTS.md; this public Skill does not assume a home-machine path.
 
 1. Read AGENTS.md and the memory index to locate the active vault. Read only the current status and task-relevant topic; do not load the whole vault.
+   If the task is about an ongoing job or internship search, also read [references/job-search.md](references/job-search.md) and keep its three layers apart.
 2. For changes or exports, preserve event date, recording date, source type, uncertainty, latest corrections, and authorization boundaries.
 3. Update only affected canonical files. Historical packages and exported snapshots are evidence, not competing current-state stores.
 4. Separate user statements, original material, summaries, assistant suggestions, and reproducible tool checks. Never invent missing dates, metrics, credentials, or outcomes.
