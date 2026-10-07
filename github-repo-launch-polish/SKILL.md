@@ -1,7 +1,7 @@
 ---
 name: github-repo-launch-polish
 description: Turn a code repository into a discoverable, star-ready open-source project. Use when a repo has a bare README, no license, no screenshots, or no topics — or when an existing README is already well-written and only needs exposure elements (badges, license, English section, star CTA) added without rewriting the author's voice. Not for code changes, feature work, or a full rewrite the author did not ask for.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # GitHub Repo Launch Polish
@@ -70,3 +70,15 @@ Text files push fine through connector/Contents-API style tools. **Binary files 
 - [ ] Live demo link works from a logged-out / incognito browser
 - [ ] Profile README repo updated (new projects listed, counts in sync)
 - [ ] No secrets, personal data, employer names, or internal URLs anywhere in the tree (grep for them)
+
+## Example
+
+A repo whose README already reads well. Mode B, five surgical additions:
+
+1. Add four badges under the title (skills count, license, runtime dependency, privacy).
+2. Add a one-line value proposition in bold, before the existing prose.
+3. Add a scenario index, ten lines of "I want X -> use Y".
+4. Fill About: one sentence of description plus topics.
+5. Append a star and issue call to action.
+
+Nothing in the author's own wording is rewritten.
