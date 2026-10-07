@@ -1,7 +1,7 @@
 ---
 name: job-search-memory-copilot
 description: Maintain a factual, date-aware job-search memory base and use it to prepare interviews, track applications, and identify the next concrete action. Not for general personal or life memory outside the job search, which belongs to personal-secretary-memory.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Job Search Memory Copilot
@@ -31,3 +31,16 @@ Read `CURRENT.md` first. Treat older notes as historical evidence, not current t
 Describe transferable skills without changing the user's actual title or claiming duties they did not perform.
 
 Lead outputs with a decision or status sentence, followed by facts, tradeoffs, unknowns, and the next action.
+
+## Example
+
+Three layers, kept apart:
+
+```
+CURRENT.md    今天的事实：投递进度、待确认项、下一步
+BACKGROUND.md 不变的背景：学历、方向、硬约束
+HISTORY/      带日期的旧记录，只追加不改写
+```
+
+Ask "which companies am I still waiting on" and the answer is read from CURRENT.md only,
+so a deadline from last month can never be reported as today's status.
