@@ -1,7 +1,7 @@
 ---
 name: session-checkpoint
 description: Maintain a compact continuation checkpoint for a long-running assistant project when its configured turn counter is due, a substantial task ends, or the user asks to prepare continuation. Not for unrelated chats or ordinary answers. It does not write or reorganize the memory base, which is personal-secretary-memory.
-version: 1.0.0
+version: 1.0.2
 ---
 
 # Session Checkpoint
@@ -30,3 +30,19 @@ Use scripts/session_checkpoint.py:
     python scripts/session_checkpoint.py --state <local-state.json> complete --checkpoint <checkpoint.md>
 
 The state is local machine metadata. Do not copy it into a public memory repository.
+
+## Example
+
+The checkpoint file stays small and factual:
+
+```markdown
+# checkpoint 2026-10-07
+
+当前任务：整理技能仓库 README
+已完成：13 个 skill 的 frontmatter 补 version
+未决：Remotion 两个 skill 是否拆得更细
+下一步：给没有示例的 skill 补 Example
+证据：git log 89f3cd0
+```
+
+No chat history, no permissions change, no claim that maintenance ran automatically.
