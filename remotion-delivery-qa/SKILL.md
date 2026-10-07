@@ -1,7 +1,7 @@
 ---
 name: remotion-delivery-qa
 description: Run reproducible delivery QA on Remotion MP4 exports, covering transition frame extraction, full-frame technical and text-edge checks, audio track verification, and dual-directory archiving of deliverables and project files. Only for Remotion export acceptance; not for general code review or ordinary web testing.
-version: 1.0.0
+version: 1.0.2
 ---
 
 # Remotion 导出与交付 QA
@@ -23,3 +23,18 @@ version: 1.0.0
 - 旧版和本次版使用不同 composition 或文件名时，不能凭“目录里有 MP4”认定成功。
 
 在确有导出任务时沿用当前依赖版本与已验证渲染入口；先修具体问题，再做针对性复检。不要每次都重跑与本次改动无关的完整审计。
+
+## Example
+
+A delivery report that separates what was actually checked:
+
+```
+渲染        Remotion render 成功，composition=main，1920x1080，30fps
+全帧技术    抽帧 900 帧，全部检查，无黑帧无撕裂
+文字边界    逐帧检查字幕安全区，第 412 帧右侧超出 3px（已记录）
+音轨        ffprobe：2 轨（aac 48kHz），时长 30.00s，与合成一致
+完整播放    人工听审通过
+归档        成片入 deliverables/，工程入 project/
+```
+
+"渲染成功" is never reported as "质量已验收".
