@@ -1,6 +1,7 @@
 ---
 name: job-search-memory-copilot
-description: Maintain a factual, date-aware job-search memory base and use it to prepare interviews, track applications, and identify the next concrete action.
+description: Maintain a factual, date-aware job-search memory base and use it to prepare interviews, track applications, and identify the next concrete action. Not for general personal or life memory outside the job search, which belongs to personal-secretary-memory.
+version: 1.0.0
 ---
 
 # Job Search Memory Copilot

@@ -1,6 +1,7 @@
 ---
 name: portfolio-github-workflow
-description: Safely inspect, edit, validate, and publish an existing video portfolio or static GitHub Pages site. Use only for repository-backed portfolio changes or deployment checks; not for generic websites, backend services, or unrelated Git operations.
+description: Safely inspect, edit, validate, and publish an existing video portfolio or static GitHub Pages site. Use only for repository-backed portfolio changes or deployment checks; not for generic websites, backend services, or unrelated Git operations. For visual and loading-performance review use video-portfolio-performance instead.
+version: 1.0.0
 ---
 
 # Portfolio GitHub Workflow
@@ -17,3 +18,21 @@ Use this entrypoint only when an existing portfolio/static-site repository and a
 2. Verify authorship/labels and never invent clients, metrics, or project claims.
 3. Keep source media, repository state, and deployed Pages state separately verifiable.
 4. Use dry-run before any push; stop on authentication, policy, or diverged-remote failures.
+
+## Before / After
+
+Before, a portfolio update is one command away from an accident:
+
+```
+git add -A; git commit -m "update"; git push origin main
+# 鉴权失败、403、远端已分叉 —— 全都等到推完才知道
+```
+
+After, the change is inspected before anything leaves the machine:
+
+```
+scripts/safe_publish.ps1 -DryRun   # 列出将要改动的文件与发布动作，不做任何写操作
+scripts/safe_publish.ps1           # 确认后再执行，遇到鉴权 / 403 / 远端分叉立即停止
+```
+
+The public URL, the commit history, and the existing media are preserved in both runs.

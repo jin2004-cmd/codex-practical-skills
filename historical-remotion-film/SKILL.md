@@ -1,6 +1,7 @@
 ---
 name: historical-remotion-film
-description: 制作或迭代使用 Remotion 的历史艺术、博物馆藏品、古画与文化图腾影片，处理原作保真、史料表述、电影化运动和拟音。仅用于这类 Remotion 影片，不用于普通网页动画、一般剪辑或史学研究。
+description: Produce or iterate Remotion films about historical art, museum collections, ancient paintings, and cultural motifs, covering source fidelity, evidence wording, cinematic motion, and original foley. Only for this kind of Remotion film; not for generic web animation, general editing, or historical research.
+version: 1.0.0
 ---
 
 # 历史艺术 Remotion 影片

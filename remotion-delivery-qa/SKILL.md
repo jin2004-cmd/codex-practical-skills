@@ -1,6 +1,7 @@
 ---
 name: remotion-delivery-qa
-description: 对 Remotion 项目的 MP4 导出做可复现交付检查，包括转场抽帧、全帧技术与文字边界检查、音轨核验和作品/工程双目录归档。只用于 Remotion 导出验收，不用于泛代码审查或普通网页测试。
+description: Run reproducible delivery QA on Remotion MP4 exports, covering transition frame extraction, full-frame technical and text-edge checks, audio track verification, and dual-directory archiving of deliverables and project files. Only for Remotion export acceptance; not for general code review or ordinary web testing.
+version: 1.0.0
 ---
 
 # Remotion 导出与交付 QA

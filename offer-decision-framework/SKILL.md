@@ -1,6 +1,7 @@
 ---
 name: offer-decision-framework
-description: Compare internships and job offers using evidence, role fit, growth, money, location, certainty, and resume value without being distracted by prestige or anxiety.
+description: Compare internships and job offers using evidence, role fit, growth, money, location, certainty, and resume value without being distracted by prestige or anxiety. Not for negotiation scripts, salary market data, or long-term career planning.
+version: 1.0.0
 ---
 
 # Offer Decision Framework

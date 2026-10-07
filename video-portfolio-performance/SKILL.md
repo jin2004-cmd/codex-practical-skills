@@ -1,6 +1,7 @@
 ---
 name: video-portfolio-performance
-description: Review and build video portfolio websites with mixed landscape and portrait media, strong visual direction, responsive interaction, and bounded loading cost.
+description: Review and build video portfolio websites with mixed landscape and portrait media, strong visual direction, responsive interaction, and bounded loading cost. Not for publishing, Git operations, or deployment, which is portfolio-github-workflow.
+version: 1.0.0
 ---
 
 # Video Portfolio Performance

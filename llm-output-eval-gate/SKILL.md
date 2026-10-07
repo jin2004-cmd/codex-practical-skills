@@ -1,6 +1,7 @@
 ---
 name: llm-output-eval-gate
-description: Add a two-layer quality gate around any LLM call so bad model output never reaches the user. Use when building agents or apps that call an LLM for structured output (plans, JSON, reviews, summaries) and need deterministic validation, model-based scoring, bounded auto-retry, best-of fallback, and an audit log.
+description: Add a two-layer quality gate around any LLM call so bad model output never reaches the user. Use when building agents or apps that call an LLM for structured output (plans, JSON, reviews, summaries) and need deterministic validation, model-based scoring, bounded auto-retry, best-of fallback, and an audit log. Not for prompt authoring, model selection, or replacing human review of high-stakes output.
+version: 1.0.0
 ---
 
 # LLM Output Eval Gate
@@ -24,7 +25,7 @@ generate → L1 deterministic validation → L2 quality scoring → pass
 
 ## Implementation
 
-Copy `assets/eval-gate.js` into the project (vanilla JS, zero dependencies, works in browser and Node). It exposes one async function:
+Copy `scripts/eval-gate.js` into the project (vanilla JS, zero dependencies, works in browser and Node). It exposes one async function:
 
 ```js
 var res = await EvalGate.gate({
@@ -50,3 +51,28 @@ Do not pick the threshold by intuition. Build a small set of deliberately-bad ou
 - Always define the fallback: best-of-attempts, a safe default, or a clear error — never an unvalidated render.
 - Make the retry loop visible to the user (badge, toast, log entry). The gate is a product feature, not hidden plumbing.
 - Mock mode must reproduce the same pass/fail behavior as live mode, including a deliberately-failing first attempt, so the pipeline is demoable without a key.
+
+## Before / After
+
+Before, a typical AI feature ships whatever the model returns:
+
+```js
+var plan = await callLLM(prompt);
+render(plan);            // 字段缺失、超预算、格式错，用户直接看到
+```
+
+After, the same call is wrapped in the gate:
+
+```js
+var res = await EvalGate.gate({
+  name: "plan",
+  generate: callLLM,
+  validate: (r) => ({ pass: r.items.length <= 5 && r.minutes <= 240, issues: [] }),
+  judge: scorePlan,
+  threshold: 7,
+  maxRetries: 2
+});
+if (!res.ok) renderFallback(res.result);   // 永远有东西可渲染，且每次尝试都有日志
+```
+
+Bad output is caught, retried at most twice, and logged before it can reach the user.

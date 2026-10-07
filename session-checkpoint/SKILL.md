@@ -1,6 +1,7 @@
 ---
 name: session-checkpoint
-description: Maintain a compact continuation checkpoint for a long-running assistant project when its configured turn counter is due, a substantial task ends, or the user asks to prepare continuation. Not for unrelated chats or ordinary answers.
+description: Maintain a compact continuation checkpoint for a long-running assistant project when its configured turn counter is due, a substantial task ends, or the user asks to prepare continuation. Not for unrelated chats or ordinary answers. It does not write or reorganize the memory base, which is personal-secretary-memory.
+version: 1.0.0
 ---
 
 # Session Checkpoint

@@ -1,6 +1,7 @@
 ---
 name: headless-webapp-screenshots
-description: Capture clean, deterministic screenshots of a JavaScript web app without installing a browser automation framework. Use when needing product screenshots of an SPA for a README, portfolio, or design review, especially when the app shows onboarding modals, seedable demo data, animations, or needs mobile and desktop viewports.
+description: Capture clean, deterministic screenshots of a JavaScript web app without installing a browser automation framework. Use when needing product screenshots of an SPA for a README, portfolio, or design review, especially when the app shows onboarding modals, seedable demo data, animations, or needs mobile and desktop viewports. Not for native or mobile apps, video capture, or installing a browser automation framework.
+version: 1.0.0
 ---
 
 # Headless Webapp Screenshots
@@ -30,3 +31,24 @@ chrome --headless=new --disable-gpu --hide-scrollbars \
 - An empty or modal-covered capture means the seed did not land: confirm the storage key matches exactly what the app reads, and that the seed script runs before app init.
 - `file://` pages share one localStorage origin in Chrome; give each capture run its own `--user-data-dir` to avoid state leaking between shots.
 - Keep the harness out of the deployed site and out of the public repo if it contains demo data.
+
+## Before / After
+
+Before, a plain capture of a real SPA looks broken:
+
+```
+chrome --headless --screenshot=shot.png --window-size=1440,900 http://localhost:5173
+# 结果：新手引导弹窗挡住整个界面，列表是空的，入场动画卡在半透明
+```
+
+After, the harness boots the app straight into its final state:
+
+```
+chrome --headless=new --disable-gpu --hide-scrollbars \
+  --user-data-dir=<temp dir> --virtual-time-budget=8000 \
+  --window-size=1440,900 --screenshot=stats.png \
+  "file:///.../harness.html?shot=1&view=stats&theme=dark"
+# 结果：演示数据已注入、动画被禁用、直接进入目标视图
+```
+
+Same machine, same Chrome, no Puppeteer and no Playwright installed.

@@ -1,6 +1,7 @@
 ---
 name: vibecoding-resume-story
-description: Turn a project built by vibecoding (user directs, AI tool writes the code) into a resume entry and interview story that is impressive yet impossible to expose as inflated. Use when writing resume bullets, portfolio descriptions, or interview talking points for AI-assisted projects where the user did not personally write the code.
+description: Turn a project built by vibecoding (user directs, AI tool writes the code) into a resume entry and interview story that is impressive yet impossible to expose as inflated. Use when writing resume bullets, portfolio descriptions, or interview talking points for AI-assisted projects where the user did not personally write the code. Not for projects the user actually wrote the code for, and never for inventing technical depth.
+version: 1.0.0
 ---
 
 # Vibecoding Resume Story
