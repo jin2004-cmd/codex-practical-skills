@@ -1,13 +1,13 @@
 # Practical Codex Skills
 
-**13 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**12 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-13-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-12-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -26,13 +26,13 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 
 | 我想解决什么 | 用哪个 |
 |---|---|
-| 秋招信息记串、Offer 选不明白、项目是 AI 写的不敢写进简历 | `job-search-memory-copilot` + `offer-decision-framework` + `vibecoding-resume-story` |
+| 秋招信息记串、Offer 选不明白、项目是 AI 写的不敢写进简历 | `personal-secretary-memory`（求职层）+ `offer-decision-framework` + `vibecoding-resume-story` |
 | 作品集要改又要发，怕把线上搞挂 | `video-portfolio-performance` 看性能，`portfolio-github-workflow` 负责发布 |
 | AI 返回的东西不能直接用、流程想沉淀成技能 | `llm-output-eval-gate` + `workflow-distiller` |
 
 ## Scenarios
 
-- 我投了几十家，AI 助手老是记混哪家的进度 → `job-search-memory-copilot`
+- 我投了几十家，AI 助手老是记混哪家的进度 → `personal-secretary-memory`（见 references/job-search.md）
 - 两个实习 Offer 不知道选哪个 → `offer-decision-framework`
 - 项目是 AI 写的，简历上不敢写「我实现了」 → `vibecoding-resume-story`
 - 作品集网页视频太多，手机一打开就卡 → `video-portfolio-performance`
@@ -55,8 +55,6 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 
 ### Job search
 
-- `job-search-memory-copilot`: keep changing job-search facts separated from stable background and dated history.
-  （求职记忆管理：把「固定背景 / 带日期的进度 / 已变更的旧信息」分开存，AI 才不会记串）
 - `offer-decision-framework`: compare uncertain offers using role fit, evidence, growth, money, location, and timing.
   （Offer 决策：岗位匹配 / 证据 / 成长 / 钱 / 城市 / 时机六个维度打分，不许凭情绪当场拍板）
 - `vibecoding-resume-story`: write a resume entry for an AI-assisted project that is impressive but impossible to expose as inflated.
@@ -91,7 +89,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 
 ### Memory and workflow
 
-- `personal-secretary-memory`: maintain dated personal-assistant memory and prepare a bounded cross-assistant handoff without hard-coded private paths.
+- `personal-secretary-memory`: maintain dated personal-assistant memory and prepare a bounded cross-assistant handoff without hard-coded private paths. Job-search tracking is one of its topic areas, see `references/job-search.md`.
 - `session-checkpoint`: keep a compact, verifiable continuation checkpoint for long-running assistant projects.
 - `workflow-distiller`: turn a repeated, validated process into a narrow reusable Skill without copying secrets or expanding authorization.
 
