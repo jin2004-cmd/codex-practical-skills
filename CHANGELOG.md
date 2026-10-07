@@ -2,6 +2,26 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-07 — v1.0.1
+
+### Added
+
+- `## Example` section in the six skills that previously shipped as a bare `SKILL.md`:
+  `github-repo-launch-polish`, `job-search-memory-copilot`, `offer-decision-framework`,
+  `vibecoding-resume-story`, `video-portfolio-performance`, `workflow-distiller`.
+- `README.md`: one line naming the four problems, plus jump links to Install and Scenarios.
+- `.gitattributes` so line endings stop being rewritten per checkout.
+
+### Fixed
+
+- Badges linked to `.`; they now point at real anchors (`#contents`, `#install`, `#privacy`).
+- `workflow-distiller/SKILL.md` still named `quick_validate.py`. The wording now refers to
+  generic skill-creator tooling instead of a script this repository does not ship.
+
+### Changed
+
+- The six skills above are now `version: 1.0.1`. The other seven stay at `1.0.0`.
+
 ## 2026-10-07 — v1.0.0 (first tagged baseline)
 
 This release is a documentation and consistency pass over all 13 skills. No skill logic changed.
