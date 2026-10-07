@@ -2,13 +2,21 @@
 
 > **中文说明**
 >
-> 这是我在秋招、开源项目和历史艺术视频制作中沉淀的一组 Codex 技能（Skills）。它们覆盖求职信息整理、Offer 决策、作品集发布、开源项目质量，以及 Remotion 历史艺术影片的制作与交付验收。
+> 这是我 2026 秋招期间给自己写的一组 Codex 技能（Skills）。秋招信息又多又乱：今天聊的岗位明天就忘、两个 Offer 各有优劣容易拍脑袋、发个作品集网页还差点把线上版本覆盖了。我把这些反复出现的麻烦各写成一个技能，让 AI 助手按固定流程帮我处理，用顺了就脱敏开源。
+>
+> 后来做开源项目时又沉淀了 4 个工程向技能：给 AI 输出加质量门、无框架给网页截产品图、把新仓库打磨到能被搜到被 star、以及把 vibecoding 项目写进简历而不失真的方法。
 >
 > 内容全部是通用流程，**不含任何人名、学校、公司、薪资、联系方式或私聊记录**，拿去就能用。
 >
 > ---
 
-Small, reusable, privacy-safe skills for job search, open-source work, and historical-art Remotion video production.
+Small, reusable, privacy-safe skills I built for my own job search and open-source work: keeping messy recruitment facts organized, making offer decisions with a fixed framework, publishing portfolio sites without accidents, gating LLM output quality, capturing product screenshots, and polishing repos for discovery.
+
+### Memory and workflow
+
+- personal-secretary-memory — maintain dated personal-assistant memory and prepare a bounded cross-assistant handoff without hard-coded private paths.
+- session-checkpoint — keep a compact, verifiable continuation checkpoint for long-running assistant projects.
+- workflow-distiller — turn a repeated, validated process into a narrow reusable Skill without copying secrets or expanding authorization.
 
 ## Included
 
@@ -22,13 +30,6 @@ Small, reusable, privacy-safe skills for job search, open-source work, and histo
   （横屏竖屏混合作品集的加载性能审查，海报帧 + 按需加载）
 - `portfolio-github-workflow`: safely edit and publish a video portfolio or static GitHub Pages site using standard Git transport.
   （安全发布：默认 dry-run，遇到鉴权失败 / 403 / 远端分叉立刻停，不硬覆盖）
-
-### Video production
-
-- `historical-remotion-film`: make or revise Remotion films about historical art, museum objects, and cultural symbols while keeping evidence, interpretation, motion, and foley distinct.
-  （历史艺术影片：分清馆藏事实、研究解释与创作表达，让画面运动和拟音服务观众理解）
-- `remotion-delivery-qa`: verify Remotion MP4 exports, representative frames, audio streams, and portfolio/engineering handoff without overstating what automated checks prove.
-  （Remotion 成片验收：核对真实导出、音轨、抽帧和双目录交付，清楚标出未完成的人工审片）
 
 ### Open-source engineering
 
@@ -44,6 +45,8 @@ Small, reusable, privacy-safe skills for job search, open-source work, and histo
 ## Privacy
 
 These skills are intentionally generic. They contain no personal names, contact details, schools, employers, salaries, addresses, private links, or private conversation history.
+
+The memory and workflow skills are genericized exports. They do not contain a user's vault, local state JSON, credentials, company material, or private conversations.
 
 ## Use
 
