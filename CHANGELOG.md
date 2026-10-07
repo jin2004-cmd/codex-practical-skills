@@ -2,6 +2,21 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-07 — v1.1.0
+
+### Changed
+
+- **Merged `job-search-memory-copilot` into `personal-secretary-memory`.** Two skills were both
+  maintaining dated facts with evidence levels, and the job-search case is a topic area of the
+  same memory base, not a separate capability. The three-layer model, the seven rules, and the
+  example now live in `personal-secretary-memory/references/job-search.md`; the standalone skill
+  folder is removed. The repository now ships 12 skills.
+- `personal-secretary-memory` is `version: 1.1.0` and its description points at the new reference.
+
+### Removed
+
+- `job-search-memory-copilot/` (content preserved as `personal-secretary-memory/references/job-search.md`).
+
 ## 2026-10-07 — v1.0.2
 
 ### Added
