@@ -4,10 +4,13 @@
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
-[![Skills](https://img.shields.io/badge/skills-13-blue)](.)
+**四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
+[跳到安装](#install) · [按场景找 skill](#scenarios)
+
+[![Skills](https://img.shields.io/badge/skills-13-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](.)
-[![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](.)
+[![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
+[![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
 
 > **中文说明**
 >
