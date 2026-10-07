@@ -1,7 +1,7 @@
 ---
 name: personal-secretary-memory
 description: Maintain or recover a user's dated personal-assistant memory and prepare a cross-assistant handoff. Use only for explicit memory updates, continuity recovery, or handoff work; ordinary career, video, website, or life tasks alone do not trigger it. Job-search-only facts belong to job-search-memory-copilot.
-version: 1.0.0
+version: 1.0.2
 ---
 
 # Personal Secretary Memory
@@ -16,3 +16,16 @@ Support a long-running personal-secretary project through one factual memory sou
 6. Report changed files, actual outputs, checks, and unresolved coverage. Do not claim automatic ingestion, cross-device sync, complete chat recovery, or acceptance without evidence.
 
 Private memory stays local. Do not publish credentials, webhook values, tokens, identity documents, private chat transcripts, or unrelated company material.
+
+## Example
+
+One entry, dated, with its source marked:
+
+```markdown
+## 2026-10-07（记录日期 2026-10-07）
+- 收到诗悦 AE 岗笔试，已回信申请转评 AIGC 岗  [来源：本人陈述]
+- 蓝标实习至 12 月中旬  [来源：offer 邮件]
+- 米哈游一面时间未定  [来源：未确认，待核]
+```
+
+"未确认" is written as unconfirmed, never filled in with a plausible date.
