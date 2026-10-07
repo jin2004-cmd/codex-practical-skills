@@ -2,6 +2,18 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-07 — v1.0.2
+
+### Added
+
+- `## Example` in the last four skills that had none: `historical-remotion-film`,
+  `remotion-delivery-qa`, `session-checkpoint`, `personal-secretary-memory`.
+  All 13 skills now ship at least one worked example.
+
+### Changed
+
+- Those four are now `version: 1.0.2`.
+
 ## 2026-10-07 — v1.0.1
 
 ### Added
