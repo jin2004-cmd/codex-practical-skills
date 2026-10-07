@@ -1,7 +1,7 @@
 ---
 name: vibecoding-resume-story
 description: Turn a project built by vibecoding (user directs, AI tool writes the code) into a resume entry and interview story that is impressive yet impossible to expose as inflated. Use when writing resume bullets, portfolio descriptions, or interview talking points for AI-assisted projects where the user did not personally write the code. Not for projects the user actually wrote the code for, and never for inventing technical depth.
-version: 1.0.0
+version: 1.0.1
 ---
 
 # Vibecoding Resume Story
@@ -42,3 +42,14 @@ For every bullet, provide the plain-language sentence the user can say out loud.
 - The same fact told twice in different bullets (assign each fact one home: mechanism in the rules bullet, evidence in the verification bullet, timeline in the iteration bullet).
 - Any number that cannot be produced on demand (scores, counts, timings).
 - Bolder claims in the resume than in the project's public README — interviewers do compare.
+
+## Example
+
+Bad, because it claims implementation work:
+
+> 实现了电商脚本生成引擎，包含合规校验模块。
+
+Good, because every clause reduces to something the user actually decided:
+
+> 定义电商短视频脚本规则：单条不超过 60 秒，卖点不超过 3 个，合规词先过再写；
+> 用 AI 工具实现后，我逐条验收输出并沉淀 27 类违禁表述词库，过审率从 70% 提到 80%。
