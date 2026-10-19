@@ -1,13 +1,13 @@
-# Practical Codex Skills
+# AI 实用 Skill 库 · Practical AI Skills
 
-**13 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**16 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-13-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-16-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -46,12 +46,16 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 助手换了、上下文断了，怎么接着干 → `session-checkpoint` + `personal-secretary-memory`
 - 一个流程重复做了三遍，想变成技能 → `workflow-distiller`
 - 国内打不开 GitHub Pages、想免注册给别人看 → `cf-pages-deploy`
+- 改了静态站但线上还是老样子 → `static-site-deploy-verify`
+- 要把纯前端网页应用上架到 Anna 应用市场 → `anna-app-publish`
+- 两台电脑各有一个记忆库，想合成一份 → `memory-sync-abc`
 
 ## Contents
 
 - [Job search](#job-search)
 - [Portfolio and publishing](#portfolio-and-publishing)
 - [Open-source engineering](#open-source-engineering)
+- [App platform publishing](#app-platform-publishing)
 - [Remotion video](#remotion-video)
 - [Memory and workflow](#memory-and-workflow)
 - [Deployment](#deployment)
@@ -81,6 +85,11 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - `github-repo-launch-polish`: turn a fresh repo into a discoverable project — README anatomy, LICENSE, About/topics, and the binary-upload limitation of API-style pushes.
   （新仓库曝光打磨：README 结构 / 徽章 / 截图 / topics，含二进制文件推送避坑）
 
+### App platform publishing
+
+- `anna-app-publish`: package a pure frontend SPA and ship it on the Anna AI OS app platform — manifest schema choice, the three rules that `extra="forbid"` rejects outright, CSP inline-handler rewrite, bundle upload, and the review-before-publish state machine.
+  （Anna 上架：manifest 里**绝不写 name/version**；schema ≥ 2 的纯 UI 应用 Executas 可留空；`script-src` 无 `unsafe-inline`，内联事件必须改事件委托；`apps publish` 不等于上架）
+
 ### Remotion video
 
 - `historical-remotion-film`: produce or iterate Remotion films about historical art, museum collections, ancient paintings, and cultural motifs.
@@ -95,11 +104,15 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - `personal-secretary-memory`: maintain dated personal-assistant memory and prepare a bounded cross-assistant handoff without hard-coded private paths. Job-search tracking is one of its topic areas, see `references/job-search.md`.
 - `session-checkpoint`: keep a compact, verifiable continuation checkpoint for long-running assistant projects.
 - `workflow-distiller`: turn a repeated, validated process into a narrow reusable Skill without copying secrets or expanding authorization.
+- `memory-sync-abc`: keep one private GitHub repo as the always-latest superset of two or more machine-local memory vaults — whitelist gitignore, GitHub API fallback when git transport is blocked, and "check the remote, not your local log".
+  （多机记忆同步：A/B/C 三库只增不删；代理环境下 git 不通改走 Git Data API；判断线上状态先查远端，本地 git log 会骗人）
 
 ### Deployment
 
 - `cf-pages-deploy`: deploy a static GitHub repo to Cloudflare Pages and get a China-accessible `*.workers.dev` URL with auto-redeploy on push. Records three dead ends (Gitee Pages permanently offline, gh-proxy only proxies raw files, local git push blocked by GFW 443) and the "Missing git connection" front-end cache gotcha.
   （Cloudflare Pages 国内镜像标准流程：Build command 留空、Root `/`、F5 刷新解 Missing git connection；Gitee Pages / gh-proxy / 本地 git 443 三条死路别再试）
+- `static-site-deploy-verify`: after any static-site push, run one pass that catches "I updated it but the site still shows the old version" — missing pushes, local/remote content drift, Service Worker cache lists, HTML references, and PWA trinity.
+  （静态站推完校验：专治"缓存名 bump 了、文件内容还是旧的"版本撕裂；修复必须**推齐文件 + 再 bump 一次 CACHE** 两步一起做）
 
 ## Before / After
 

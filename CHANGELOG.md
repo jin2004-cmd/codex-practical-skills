@@ -2,6 +2,46 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-19 — v1.2.0
+
+### Added
+
+- **`anna-app-publish`** (`version: 1.0.0`) — ship a pure frontend SPA on the Anna AI OS app platform.
+  Records the three rules that get a manifest rejected outright: `name`/`version` must never appear
+  (Pydantic `extra="forbid"`), `required_executas` may be empty on `schema ≥ 2` bundle-only apps
+  (the Console's "at least one Executa" hint is a `schema: 1` leftover), and `apps publish` is not
+  the same as going live. Also covers the CSP rewrite: `script-src` has no `'unsafe-inline'` and
+  `csp_overrides.script-src` cannot add one, so inline `onclick` handlers must become event delegation.
+- **`static-site-deploy-verify`** (`version: 1.0.0`) — one verification pass after any static-site push,
+  targeting "I updated it but the site still shows the old version". Five checks: missing pushes,
+  local/remote content drift, Service Worker cache lists, HTML references, PWA trinity. The fix for
+  version tearing is two steps together — push every drifted file **and** bump `const CACHE` again.
+- **`memory-sync-abc`** (`version: 1.0.0`) — one private GitHub repo as the always-latest superset of
+  two or more machine-local vaults. Whitelist `.gitignore`, Git Data API fallback when git transport
+  is blocked by a proxy, and the rule that local `git log` lies (API-style pushes create no local commit).
+
+### Changed
+
+- Repository title is now **AI 实用 Skill 库 · Practical AI Skills**; README headline and skill badge
+  updated from 13 to 16.
+- README gains an `App platform publishing` section and four new scenario lines.
+
+### Fixed
+
+- **`cf-pages-deploy` shipped with no CHANGELOG entry.** It was added after v1.1.0, which is why
+  v1.1.0 says "the repository now ships 12 skills" while the README badge already said 13. This entry
+  records it retroactively; the skill is treated as part of v1.2.0.
+
+### Known gaps
+
+- `cf-pages-deploy/SKILL.md` still has no `version` field in its frontmatter, unlike the other 15 skills.
+- Three skills referenced in personal memory are **not** in this repository because their source text
+  was never authored here and cannot be reconstructed without inventing content:
+  `job-hunt-copilot`, `shanghai-rental-inspection`, `feishu-task-delivery`.
+- Skills from other authors (`obsidian-markdown`, `json-canvas` by kepano; `impeccable`; `taste-skill`;
+  `remotion-best-practices`; the realestate skill set) are deliberately **not** vendored here — they are
+  MIT/upstream work and re-publishing them under this repository would misattribute authorship.
+
 ## 2026-10-07 — v1.1.0
 
 ### Changed
