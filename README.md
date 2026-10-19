@@ -1,13 +1,13 @@
 # Practical Codex Skills
 
-**12 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**13 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-12-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-13-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -16,7 +16,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 >
 > 这是我 2026 秋招期间给自己写的一组 Codex 技能（Skills）。秋招信息又多又乱：今天聊的岗位明天就忘、两个 Offer 各有优劣容易拍脑袋、发个作品集网页还差点把线上版本覆盖了。我把这些反复出现的麻烦各写成一个技能，让 AI 助手按固定流程帮我处理，用顺了就脱敏开源。
 >
-> 后来做开源项目和 Remotion 影片时又沉淀了工程向技能：给 AI 输出加质量门、无框架给网页截产品图、把新仓库打磨到能被搜到被 star、Remotion 影片的史料表述与导出验收、以及把 vibecoding 项目写进简历而不失真的方法。
+> 后来做开源项目和 Remotion 影片时又沉淀了工程向技能：给 AI 输出加质量门、无框架给网页截产品图、把新仓库打磨到能被搜到被 star、Remotion 影片的史料表述与导出验收、把 vibecoding 项目写进简历而不失真；以及被 GFW 卡住时把 GitHub 静态站镜像到 Cloudflare 国内可访问域名的完整流程。
 >
 > 内容全部是通用流程，**不含任何人名、学校、公司、薪资、联系方式或私聊记录**，拿去就能用。
 
@@ -29,6 +29,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 | 秋招信息记串、Offer 选不明白、项目是 AI 写的不敢写进简历 | `personal-secretary-memory`（求职层）+ `offer-decision-framework` + `vibecoding-resume-story` |
 | 作品集要改又要发，怕把线上搞挂 | `video-portfolio-performance` 看性能，`portfolio-github-workflow` 负责发布 |
 | AI 返回的东西不能直接用、流程想沉淀成技能 | `llm-output-eval-gate` + `workflow-distiller` |
+| GitHub Pages 国内打不开、要给别人分享 | `cf-pages-deploy` 一键镜像到 Cloudflare |
 
 ## Scenarios
 
@@ -44,6 +45,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 做历史题材的 Remotion 影片，怕史料说错、原作失真 → `historical-remotion-film`
 - 助手换了、上下文断了，怎么接着干 → `session-checkpoint` + `personal-secretary-memory`
 - 一个流程重复做了三遍，想变成技能 → `workflow-distiller`
+- 国内打不开 GitHub Pages、想免注册给别人看 → `cf-pages-deploy`
 
 ## Contents
 
@@ -52,6 +54,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - [Open-source engineering](#open-source-engineering)
 - [Remotion video](#remotion-video)
 - [Memory and workflow](#memory-and-workflow)
+- [Deployment](#deployment)
 
 ### Job search
 
@@ -92,6 +95,11 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - `personal-secretary-memory`: maintain dated personal-assistant memory and prepare a bounded cross-assistant handoff without hard-coded private paths. Job-search tracking is one of its topic areas, see `references/job-search.md`.
 - `session-checkpoint`: keep a compact, verifiable continuation checkpoint for long-running assistant projects.
 - `workflow-distiller`: turn a repeated, validated process into a narrow reusable Skill without copying secrets or expanding authorization.
+
+### Deployment
+
+- `cf-pages-deploy`: deploy a static GitHub repo to Cloudflare Pages and get a China-accessible `*.workers.dev` URL with auto-redeploy on push. Records three dead ends (Gitee Pages permanently offline, gh-proxy only proxies raw files, local git push blocked by GFW 443) and the "Missing git connection" front-end cache gotcha.
+  （Cloudflare Pages 国内镜像标准流程：Build command 留空、Root `/`、F5 刷新解 Missing git connection；Gitee Pages / gh-proxy / 本地 git 443 三条死路别再试）
 
 ## Before / After
 
