@@ -2,6 +2,44 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-21 — v1.4.0
+
+Skill count **22 → 24**.
+
+### Added
+
+- `career-pivot-research` (v1.0.0) — research whether a career pivot is viable *before* rewriting a
+  resume for it. Collects 5-8 real JDs with source links, derives three capability tiers
+  (minimum bar / full match / beyond), and hunts for the project the user already owns but
+  described in the wrong vocabulary. Ships a rewrite table with character-count deltas and a
+  study plan whose every day has an acceptance artifact.
+  Distinct from `resume-jd-matcher` (one JD, go/no-go) and `job-application-screener` (batch ranking).
+- `github-repo-repair-audit` (v1.0.0) — repair and audit an **existing** repo. Leads with
+  "verify the remote before you touch anything", because the dominant failure is acting on a
+  description that already went stale. Covers byte-level local/remote comparison, the >1 MB
+  contents-API limitation, sandbox reproduction, and updating every artifact that quotes a
+  number you changed.
+  Distinct from `github-repo-launch-polish` (new repo discoverability).
+
+### Changed
+
+- `single-file-html-tool` **v1.0.0 → v1.1.0** — four gates became six. Added gate 6:
+  **patching a page that is already online.** Re-generating the whole file drags in template
+  drift, encoding and line-ending noise, and produces a diff nobody can review. Patch at byte
+  level instead, then prove it by deleting the inserted block and asserting the result equals the
+  original byte for byte. Also states when *not* to write an `og:image` at all.
+- `resume-jd-matcher` **v1.1.0 → v1.2.0** — added Step 4, the rewrite table, for when the ask is
+  「照着 JD 改简历」rather than 「匹配吗」. Per-location rows with original / rewritten / character
+  delta / rationale / risk tag, copy buttons, and the rule that every red-row delta ships with a
+  compressed alternative. Adds the "find the mislabelled project" step — the highest-leverage move
+  in a rewrite, since it needs no invented material.
+
+### Why these two, and not more
+
+Both came from work that was actually finished and re-checked the same day, and neither overlapped
+an existing capability (`workflow-distiller`: prefer a focused update to a duplicate). Four smaller
+candidates were deliberately **not** promoted — single-occurrence fixes belong in the daily log.
+
 ## 2026-10-21 — v1.3.1
 
 ### Fixed

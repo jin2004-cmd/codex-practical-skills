@@ -1,13 +1,13 @@
 # AI 实用 Skill 库 · Practical AI Skills
 
-**22 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**24 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-22-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-24-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -52,6 +52,8 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 不知道某家公司的官方校招投递页在哪、JD 是不是过期的 → `recruiting-source-hunting`
 - 要把纯前端网页应用上架到 Anna 应用市场 → `anna-app-publish`
 - 两台电脑各有一个记忆库，想合成一份 → `memory-sync-abc`
+- 想转一个全新的岗位方向，不知道人家到底要什么 → `career-pivot-research`
+- 检修老仓库，却不确定「main 还是旧版」这种说法还成不成立 → `github-repo-repair-audit`
 
 ## Contents
 
@@ -78,6 +80,8 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   （校招信息溯源：先查手上的结构化数据有没有现成字段，别绕远路全网搜；单一来源不落笔，搜不到就说搜不到）
 - `job-application-tracker`: maintain a single-file application ledger — status enum that never collapses 无岗 into 未投, 100% clickable company links in three visual tiers, visited receipts, and duplicate-safe backup merging.
   （投递台账：状态语义不许合并；每家公司名都必须点得开；增量备份按「精确名→括号内简称→规范化名→双向包含」顺序匹配）
+- `career-pivot-research`: research whether a career pivot is viable before rewriting a resume for it — collect 5-8 real linkable JDs, derive three capability tiers (minimum bar / full match / beyond), find the project the user already owns but described in the wrong vocabulary, then ship a rewrite table with character-count deltas and a study plan with daily acceptance criteria.
+  （转岗调研：先搜真实 JD 再谈匹配；三档能力分开看；最大杠杆是「你已经做了但用旧领域词汇描述」的那个项目；改完简历还要给每日可验收的学习计划）
 
 ### Portfolio and publishing
 
@@ -96,6 +100,10 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   （无框架网页截图：预置演示数据 + 禁动画 + 虚拟时间快进，附截图模板与脚本）
 - `github-repo-launch-polish`: turn a fresh repo into a discoverable project — README anatomy, LICENSE, About/topics, and the binary-upload limitation of API-style pushes.
   （新仓库曝光打磨：README 结构 / 徽章 / 截图 / topics，含二进制文件推送避坑）
+- `github-repo-repair-audit`: repair and audit an existing repo — verify what is actually on the remote before acting, compare local vs remote at byte level (sha and size both lie), reproduce a bug in a sandbox before fixing it, and update every artifact that quotes a number you changed.
+  （老仓库检修：**先查远端再动手**，任务描述会过期；判定内容一致要下载比字节，sha 和 size 都会骗人；修 bug 先复现；改了数字要回头改所有引用它的地方）
+
+> 这两个都动 GitHub 仓库，但分工不同：**新仓库要被人搜到用 `github-repo-launch-polish`，老仓库要修 bug / 核状态用 `github-repo-repair-audit`。**
 
 ### App platform publishing
 
@@ -122,19 +130,23 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 ### Local tooling
 
 - `single-file-html-tool`: build and verify a zero-dependency single-file HTML tool (tracker, ledger, dashboard).
-  Covers four gates that decide whether the file actually works: **seed versioning** (bump `SEED_VERSION`
+  Covers six gates that decide whether the file actually works: **seed versioning** (bump `SEED_VERSION`
   or existing users keep seeing stale seed data), **end-to-end field-name consistency** (a `url`/`u` mismatch
   silently drops every link while all scripts still exit 0), **static visual affordance** for clickable
-  elements (implemented ≠ visible), and a **fake-DOM smoke test** that executes the page script for real,
-  because `node --check` validates syntax only and cannot catch a first-screen crash.
+  elements (implemented ≠ visible), a **fake-DOM smoke test** that executes the page script for real
+  (because `node --check` validates syntax only and cannot catch a first-screen crash), and — when patching
+  a page that is already online — a **byte-level minimal insert** proven harmless by deleting the inserted
+  block and asserting the result equals the original byte for byte.
   Ships `scripts/fake_dom_smoke.js`.
-  （单文件 HTML 工具四道门：种子版本号、字段全链路同名、可点击元素静态可辨、假 DOM 真跑；
+  （单文件 HTML 工具六道门：种子版本号、字段全链路同名、可点击元素静态可辨、假 DOM 真跑、
+  **改已上线页面用字节级插入**、**删掉插入块必须等于原文件**；
   `node --check` 只查语法，抓不到首屏崩溃。附脚手架脚本）
 
-> 求职层共 6 个 skill，按投递链路分工，互不重叠：
-> `recruiting-source-hunting` 找链接 → `job-application-screener` 决定投不投 →
-> `resume-jd-matcher` 检查简历怎么改 → `job-application-tracker` 记录投了没 →
-> `offer-decision-framework` 比较 Offer → `vibecoding-resume-story` 把项目写进简历。
+> 求职层共 7 个 skill，按投递链路分工，互不重叠：
+> `career-pivot-research` 想转什么方向 → `recruiting-source-hunting` 找链接 →
+> `job-application-screener` 决定投不投 → `resume-jd-matcher` 检查简历怎么改 →
+> `job-application-tracker` 记录投了没 → `offer-decision-framework` 比较 Offer →
+> `vibecoding-resume-story` 把项目写进简历。
 
 ### Deployment
 

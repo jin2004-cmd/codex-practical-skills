@@ -1,7 +1,7 @@
 ---
 name: single-file-html-tool
-description: Build and verify a zero-dependency single-file HTML tool (tracker, ledger, dashboard, calculator) with localStorage persistence, JSON/CSV import-export, seed versioning, and a fake-DOM smoke test that catches first-screen crashes node --check misses. Use when delivering "一个能双击打开的表/台账/看板" or maintaining an existing one.
-version: 1.0.0
+description: Build and verify a zero-dependency single-file HTML tool (tracker, ledger, dashboard, calculator) with localStorage persistence, JSON/CSV import-export, seed versioning, and a fake-DOM smoke test that catches first-screen crashes node --check misses. Also covers patching existing HTML pages with a byte-level minimal insert that is proven to touch nothing else. Use when delivering "一个能双击打开的表/台账/看板", maintaining an existing one, or adding tags to pages already online.
+version: 1.1.0
 ---
 
 # Single-File HTML Tool
@@ -21,7 +21,7 @@ _merged_seed.json    ← 底表（唯一真相源）
 
 短键压缩（底表 556 条 → 197 KB）：内部存 `n/c/s/j/d/l/k/o/u/a/h`，运行时 `sanitize()` 展开成 `name/category/status/jobs/...`。体积差 3-4 倍，值得。
 
-## Five gates before delivery
+## Six gates before delivery
 
 ### 1. Seed versioning — 老用户也要看到新底表
 
@@ -119,6 +119,35 @@ node scripts/fake_dom_smoke.js <target.html> --export DB,stats,render
 
 > 坑：Node 的 `console.log` 不支持 `%-46s` 这类宽度占位，用字符串拼接 + `padEnd`。
 
+### 6. 改已上线的页面 — 字节级插入，且证明没碰别的
+
+给已经在线的页面加东西（meta 标签、一段脚本、一个埋点），**不要重新生成整个文件**。
+重新生成会带上模板的版本漂移、编码变化、行尾变化，产出一大片无法解释的 diff。
+
+以字节为单位操作：读 `rb`，找到锚点，插入一段 UTF-8 编码的内容，其余**一个字节都不动**。
+
+```python
+raw = open(path, 'rb').read()
+i   = raw.find(b'</title>')          # 锚点用 </title> 或 <head>
+out = raw[:i+8] + block.encode('utf-8') + raw[i+8:]
+```
+
+**验证必须做**：把插入块从新文件里删掉，看是否等于原文件。
+
+```python
+assert out.replace(block, b'', 1) == raw     # 逐字节一致 = 只插了这一块
+for tag in (b'<head>', b'</head>', b'</html>', b'<body>'):
+    assert out.count(tag) == raw.count(tag)  # 骨架标签数量未变
+```
+
+> **Real case (2026-10-21):** 9 个已上线的作品页要补 og/twitter 社交预览标签。
+> 全部用字节级插入，9 个文件每一个都过了「删掉插入块 == 原文件」。
+> 上线后 curl 复查确认生效。Reviewer 看到的 diff 只有新增的 meta 行，没有杂音。
+
+**宁可缺一张图，也不要挂一张错的图。** 目标仓库里没有与页面内容对得上的封面时，
+不写 `og:image`，`twitter:card` 用 `summary` 而不是 `summary_large_image`，并在 CHANGELOG 里
+写明为什么故意不写。
+
 ## Persistence contract
 
 - 键名带年份/用途前缀：`qiuzhao2027_ledger_v1`
@@ -133,6 +162,7 @@ node scripts/fake_dom_smoke.js <target.html> --export DB,stats,render
 - [ ] SEED_VERSION 已 bump
 - [ ] 生成物里能 grep 到关键数据（字段没被丢）
 - [ ] 假 DOM 冒烟测试全绿
+- [ ] 若改的是既有页面：字节级插入 + 「删掉插入块 == 原文件」已验证
 - [ ] 文件落在**工作区**，没进投递区
 
 ## Example
