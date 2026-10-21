@@ -1,6 +1,7 @@
 ---
 name: cf-pages-deploy
 description: 把 GitHub 上的纯静态前端仓库（HTML/CSS/JS、无构建）一键部署到 Cloudflare Pages，生成国内免翻墙可访问的 *.workers.dev 地址，且后续 push 自动同步。适用于用户要求"国内镜像""免注册点开就看""映射一份到国内"等场景。Gitee Pages 已永久下线，不要再试。
+version: 1.0.0
 ---
 
 # CF Pages 一键部署国内镜像

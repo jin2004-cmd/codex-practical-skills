@@ -24,9 +24,9 @@ One entry, dated, with its source marked:
 
 ```markdown
 ## 2026-10-07（记录日期 2026-10-07）
-- 收到诗悦 AE 岗笔试，已回信申请转评 AIGC 岗  [来源：本人陈述]
-- 蓝标实习至 12 月中旬  [来源：offer 邮件]
-- 米哈游一面时间未定  [来源：未确认，待核]
+- 收到 A 公司内容运营岗笔试，已回信申请转评 AIGC 方向  [来源：本人陈述]
+- 当前实习预计持续到 12 月中旬  [来源：offer 邮件]
+- B 公司一面时间还没定  [来源：未确认，待核]
 ```
 
 "未确认" is written as unconfirmed, never filled in with a plausible date.

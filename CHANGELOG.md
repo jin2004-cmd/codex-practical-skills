@@ -2,6 +2,19 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-21 — v1.3.1
+
+### Fixed
+
+- **`personal-secretary-memory`** — the `Example` block carried real employer names and real
+  application events carried over from the private copy. Replaced with generic placeholders
+  (`A 公司` / `B 公司`, no dates, no employers). This is a public repo; the intro promised
+  no names, schools, employers, or salaries, and the example contradicted that promise.
+- **`cf-pages-deploy`** — added the missing `version` field. It was the only one of 21 skills
+  without it, which breaks any script that reads the field uniformly.
+- **`recruiting-source-hunting`** — reworded the "real lesson" note. The lesson is worth keeping;
+  recording that the operator was sworn at is not appropriate content for a public repo.
+
 ## 2026-10-21 — v1.3.0
 
 ### Added
