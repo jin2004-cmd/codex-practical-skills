@@ -2,6 +2,36 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-21 — v1.3.0
+
+### Added
+
+- **`single-file-html-tool`** (`version: 1.0.0`) — build and verify a zero-dependency single-file HTML
+  tool. Four gates: seed versioning (`SEED_VERSION` must be bumped whenever seed data changes, or returning
+  users silently keep old data), end-to-end field-name consistency (template writes `url`, build emits `u`,
+  seed reads `c.u` → every link dropped while all scripts exit 0), static visual affordance for clickable
+  elements, and a fake-DOM smoke test. Ships `scripts/fake_dom_smoke.js`, which stubs
+  `document`/`localStorage`/`window`/`FileReader` and runs the page script through `new Function`.
+  Two recorded gotchas: Node 22 makes `globalThis.navigator` a getter-only property (needs
+  `Object.defineProperty`), and replacing `global.URL` wholesale breaks Node's own fs shim.
+- **`job-application-tracker`** (`version: 1.0.0`) — status enum for an application ledger, where
+  `无岗` / `待查验` must never collapse into `未投`; 100% clickable company names across three visual
+  tiers (direct / mailto / search fallback); visited receipts in a separate localStorage key;
+  and incremental backup merging with a strict match order (exact → parenthesised short name →
+  normalised → bidirectional containment). Ships `scripts/merge_backup.py`.
+  Two recorded gotchas: dropping 集团/科技/技术 during normalisation collides `TCL科技` into `TCL`,
+  and a company that appears "missing" may actually exist with 0 jobs — backfill, don't insert.
+- **`recruiting-source-hunting`** (`version: 1.0.0`) — source tiers for official campus-recruiting
+  links and current JDs: company-built job portals > university career sites > third-party job banks >
+  search fallback. Rule 0 is to read the structured data you already hold before searching the open web.
+  Also records URL parameters that leak referral codes (`recommendCode=`, `spread=`, `?KeyWords=`).
+- **`job-application-screener`** (`version: 2.0.0`) — **desensitized public edition of an existing
+  private skill.** Batch-screens job listing screenshots: read every image and report the count,
+  reverse-look-up the JD, rate fit, then emit a fixed four-section report with referral codes inline.
+  Personal paths, real referral codes, and private profile content were removed; see the Setup section.
+- **`resume-jd-matcher`** (`version: 1.1.0`) — pre-application resume-to-JD match check, ported from
+  a local skill. Ships `scripts/match_resume.py` for hard requirements, keyword coverage, and duplicate lines.
+
 ## 2026-10-19 — v1.2.0
 
 ### Added

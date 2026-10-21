@@ -1,13 +1,13 @@
 # AI 实用 Skill 库 · Practical AI Skills
 
-**16 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**21 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-16-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-21-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -47,6 +47,9 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 一个流程重复做了三遍，想变成技能 → `workflow-distiller`
 - 国内打不开 GitHub Pages、想免注册给别人看 → `cf-pages-deploy`
 - 改了静态站但线上还是老样子 → `static-site-deploy-verify`
+- 要做一个能双击打开、能存数据、能导出的表/台账/看板 → `single-file-html-tool`
+- 台账里一堆公司名点不开、或者合并备份并出了重复公司 → `job-application-tracker`
+- 不知道某家公司的官方校招投递页在哪、JD 是不是过期的 → `recruiting-source-hunting`
 - 要把纯前端网页应用上架到 Anna 应用市场 → `anna-app-publish`
 - 两台电脑各有一个记忆库，想合成一份 → `memory-sync-abc`
 
@@ -55,6 +58,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - [Job search](#job-search)
 - [Portfolio and publishing](#portfolio-and-publishing)
 - [Open-source engineering](#open-source-engineering)
+- [Local tooling](#local-tooling)
 - [App platform publishing](#app-platform-publishing)
 - [Remotion video](#remotion-video)
 - [Memory and workflow](#memory-and-workflow)
@@ -66,6 +70,14 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   （Offer 决策：岗位匹配 / 证据 / 成长 / 钱 / 城市 / 时机六个维度打分，不许凭情绪当场拍板）
 - `vibecoding-resume-story`: write a resume entry for an AI-assisted project that is impressive but impossible to expose as inflated.
   （vibecoding 项目简历话术：每条都能还原成用户本人下过的需求，数字不虚、分工坦荡）
+- `resume-jd-matcher`: pre-application resume-to-JD match check — machine-check hard requirements and keyword coverage, flag gaps in three tiers, rewrite only from real experience.
+  （简历-JD 机检：硬条件 + 关键词覆盖率逐词核验；缺失项分「真没做过 / 做过没写 / 语义同义」三档，只基于真实经历改写）
+- `job-application-screener`: screen a batch of job listing screenshots — read every image, reverse-look-up the JD, rate fit, output a fixed four-section report with referral codes inline per job.
+  （岗位批量筛选：逐张读图并报总数、反查 JD、评级、四段式输出；内推码必须和岗位写在同一行）
+- `recruiting-source-hunting`: find official campus-recruiting links and current JDs — check existing structured data first, then university career sites and company-built portals, cross-verify before writing anything down.
+  （校招信息溯源：先查手上的结构化数据有没有现成字段，别绕远路全网搜；单一来源不落笔，搜不到就说搜不到）
+- `job-application-tracker`: maintain a single-file application ledger — status enum that never collapses 无岗 into 未投, 100% clickable company links in three visual tiers, visited receipts, and duplicate-safe backup merging.
+  （投递台账：状态语义不许合并；每家公司名都必须点得开；增量备份按「精确名→括号内简称→规范化名→双向包含」顺序匹配）
 
 ### Portfolio and publishing
 
@@ -106,6 +118,23 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - `workflow-distiller`: turn a repeated, validated process into a narrow reusable Skill without copying secrets or expanding authorization.
 - `memory-sync-abc`: keep one private GitHub repo as the always-latest superset of two or more machine-local memory vaults — whitelist gitignore, GitHub API fallback when git transport is blocked, and "check the remote, not your local log".
   （多机记忆同步：A/B/C 三库只增不删；代理环境下 git 不通改走 Git Data API；判断线上状态先查远端，本地 git log 会骗人）
+
+### Local tooling
+
+- `single-file-html-tool`: build and verify a zero-dependency single-file HTML tool (tracker, ledger, dashboard).
+  Covers four gates that decide whether the file actually works: **seed versioning** (bump `SEED_VERSION`
+  or existing users keep seeing stale seed data), **end-to-end field-name consistency** (a `url`/`u` mismatch
+  silently drops every link while all scripts still exit 0), **static visual affordance** for clickable
+  elements (implemented ≠ visible), and a **fake-DOM smoke test** that executes the page script for real,
+  because `node --check` validates syntax only and cannot catch a first-screen crash.
+  Ships `scripts/fake_dom_smoke.js`.
+  （单文件 HTML 工具四道门：种子版本号、字段全链路同名、可点击元素静态可辨、假 DOM 真跑；
+  `node --check` 只查语法，抓不到首屏崩溃。附脚手架脚本）
+
+> 求职层共 6 个 skill，按投递链路分工，互不重叠：
+> `recruiting-source-hunting` 找链接 → `job-application-screener` 决定投不投 →
+> `resume-jd-matcher` 检查简历怎么改 → `job-application-tracker` 记录投了没 →
+> `offer-decision-framework` 比较 Offer → `vibecoding-resume-story` 把项目写进简历。
 
 ### Deployment
 
