@@ -1,13 +1,13 @@
 # AI 实用 Skill 库 · Practical AI Skills
 
-**24 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**25 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-24-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-25-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -45,6 +45,9 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 做历史题材的 Remotion 影片，怕史料说错、原作失真 → `historical-remotion-film`
 - 助手换了、上下文断了，怎么接着干 → `session-checkpoint` + `personal-secretary-memory`
 - 一个流程重复做了三遍，想变成技能 → `workflow-distiller`
+- 面试录音/逐字稿，想看自己哪句话扣分 → `interview-debrief`
+- 给别人做付费面试诊断，要交一份能转发的 Word → `interview-debrief`（顾问模式）
+- 笔试倒计时里卡在一道算法题上 → `online-assessment-solver`
 - 国内打不开 GitHub Pages、想免注册给别人看 → `cf-pages-deploy`
 - 改了静态站但线上还是老样子 → `static-site-deploy-verify`
 - 要做一个能双击打开、能存数据、能导出的表/台账/看板 → `single-file-html-tool`
@@ -80,6 +83,13 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   （校招信息溯源：先查手上的结构化数据有没有现成字段，别绕远路全网搜；单一来源不落笔，搜不到就说搜不到）
 - `job-application-tracker`: maintain a single-file application ledger — status enum that never collapses 无岗 into 未投, 100% clickable company links in three visual tiers, visited receipts, and duplicate-safe backup merging.
   （投递台账：状态语义不许合并；每家公司名都必须点得开；增量备份按「精确名→括号内简称→规范化名→双向包含」顺序匹配）
+- `interview-debrief`: turn an interview transcript into a structured debrief, in two modes — self mode (own interview, scored, with a career-track judgement) and consultant mode (paid diagnosis for someone else, delivered as a Word report). Covers the two failure modes that dominate real transcripts: the interviewer naming a direction the candidate never enters, and "how I optimised it" being offered where "what the result was" was asked. Every finding carries the verbatim line, its timestamp, and one sentence the person can actually say next time.
+  （面试复盘双模式：**自我模式**带评分和赛道判断；**顾问模式**给别人做诊断、交 Word、不做赛道判断。
+  核心抓两类错：面试官已经给了方向候选人没切进去；把"讲方法"当成"讲结果"。
+  每条必须原话 + 时间戳 + 一句可直接念的改法。客户姓名学校公司一律泛化）
+- `online-assessment-solver`: solve a coding question from a timed written test — reverse-derive the true definition from the samples, hand-write zero-dependency code that pastes straight into an empty `class Solution {}` template, verify against every sample index, and name the method-name risk.
+  （笔试算法题：**样例才是真正的规格说明**，题面往往是含糊的；相等元素那一对决定栈里用 `<=` 还是 `<`；
+  空模板没有 import，用手写数组栈；倒计时在走时先给完整答案再解释三行，不反问）
 - `career-pivot-research`: research whether a career pivot is viable before rewriting a resume for it — collect 5-8 real linkable JDs, derive three capability tiers (minimum bar / full match / beyond), find the project the user already owns but described in the wrong vocabulary, then ship a rewrite table with character-count deltas and a study plan with daily acceptance criteria.
   （转岗调研：先搜真实 JD 再谈匹配；三档能力分开看；最大杠杆是「你已经做了但用旧领域词汇描述」的那个项目；改完简历还要给每日可验收的学习计划）
 
@@ -123,7 +133,10 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 
 - `personal-secretary-memory`: maintain dated personal-assistant memory and prepare a bounded cross-assistant handoff without hard-coded private paths. Job-search tracking is one of its topic areas, see `references/job-search.md`.
 - `session-checkpoint`: keep a compact, verifiable continuation checkpoint for long-running assistant projects.
-- `workflow-distiller`: turn a repeated, validated process into a narrow reusable Skill without copying secrets or expanding authorization.
+- `workflow-distiller`: turn a repeated, validated process into a narrow reusable Skill — check the remote index first because a duplicate is the dominant failure, distil the failure modes rather than the happy path, desensitise names and employers out of the Example block, and sync README plus CHANGELOG in the same commit. Also covers the silent clobber when two sessions push to the same repo within an hour: fetch the current file shas, build the tree on that base, and fetch the file back afterwards to confirm.
+  （沉淀技能：先查远端索引，重复建同类 skill 是最常见的错；**写踩过的坑而不是正确流程**；
+  脱敏要查 Example 块里的真人名和雇主名；README 与 CHANGELOG 必须同一次提交改完；
+  两个会话并发推送会静默互相覆盖——推送前拉当前 sha，推完再把文件拉回来验一遍）
 - `memory-sync-abc`: keep one private GitHub repo as the always-latest superset of two or more machine-local memory vaults — whitelist gitignore, GitHub API fallback when git transport is blocked, and "check the remote, not your local log".
   （多机记忆同步：A/B/C 三库只增不删；代理环境下 git 不通改走 Git Data API；判断线上状态先查远端，本地 git log 会骗人）
 
@@ -142,10 +155,11 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   **改已上线页面用字节级插入**、**删掉插入块必须等于原文件**；
   `node --check` 只查语法，抓不到首屏崩溃。附脚手架脚本）
 
-> 求职层共 7 个 skill，按投递链路分工，互不重叠：
+> 求职层共 9 个 skill，按投递链路分工，互不重叠：
 > `career-pivot-research` 想转什么方向 → `recruiting-source-hunting` 找链接 →
 > `job-application-screener` 决定投不投 → `resume-jd-matcher` 检查简历怎么改 →
-> `job-application-tracker` 记录投了没 → `offer-decision-framework` 比较 Offer →
+> `job-application-tracker` 记录投了没 → `online-assessment-solver` 过笔试 →
+> `interview-debrief` 面完复盘 → `offer-decision-framework` 比较 Offer →
 > `vibecoding-resume-story` 把项目写进简历。
 
 ### Deployment

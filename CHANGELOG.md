@@ -2,6 +2,48 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-22 — v1.5.0
+
+Skill count **24 → 25**.
+
+### Added
+
+- `online-assessment-solver` (v1.0.0) — solve a coding question from a timed written test. Leads with
+  "the samples are the spec, the prose is not": one sample mismatch kills a hypothesis, so the
+  definition is reverse-derived index by index before any code is written. Calls out the equal-element
+  pair specifically, because that single pair decides `<=` vs `<` in a monotonic-stack pop and is where
+  most wrong answers come from. Ships as zero-dependency code — an empty `class Solution {}` template
+  has no `import`, so a hand-written array stack beats `ArrayDeque` and nothing is left as `// TODO`.
+  Answers before asking: with a countdown running, an unverified reading is stated inline and answered
+  in full, never turned into a clarifying question.
+  Distinct from `career-pivot-research` (whether to aim at a role) and `resume-jd-matcher` (one JD).
+
+### Changed
+
+- `interview-debrief` **v1.0.0 → v2.0.0** — split into two modes, because self-debrief and paid
+  diagnosis for someone else share almost nothing: consultant mode drops the scoring, drops the
+  career-track judgement (that is the client's call, not the report's), and delivers a Word file
+  instead of Markdown. Adds the two failure modes that dominate real transcripts — the interviewer
+  naming a direction the candidate never enters, and "how I optimised it" offered where "what the
+  result was" was asked — plus a four-layer severity ladder and a mandatory four-part finding
+  (verbatim line, timestamp, mechanism, one sentence to say next time). Records two tool traps:
+  `WebFetch` truncates a Feishu doc at the first large table, and the transcript command lives under
+  `note`, not `meeting`. Requires every client name, school and employer to be generalised.
+- `workflow-distiller` **v1.0.1 → v2.0.0** — expanded from six lines to the full distillation pass.
+  Step 1 is now "check the index on the remote before creating anything", because the dominant failure
+  is a duplicate: this release wanted a new interview Skill until the index showed `interview-debrief`
+  already existed. Adds the desensitisation table with the leaks that actually happen (names,
+  employers, offer status, and — hardest to spot — real client events reused as the Example), the
+  "I never verified it ≠ it is wrong" rule that follows from deleting a real number once, and the
+  concurrent-session clobber: two pushes an hour apart silently replaced each other, so fetch the file
+  shas first and fetch the file back afterwards.
+
+### Fixed
+
+- `README.md` omitted `interview-debrief` entirely — the folder existed with a `SKILL.md` but no index
+  entry, no scenario, and no changelog line, making it invisible to anyone browsing. Now listed under
+  Job search and folded into the 9-skill application chain.
+
 ## 2026-10-21 — v1.4.0
 
 Skill count **22 → 24**.
