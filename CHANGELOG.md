@@ -2,6 +2,47 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-25 — v1.6.0
+
+Skill count **25 → 28**.
+
+### Added
+
+- `resume-polish-craft` (v1.0.0) — polish a resume whose content is already right. Leads with the
+  rule that failed hardest: **format tasks and content tasks are different tasks**. Asked to mark
+  which sentences deserve bold, the previous pass returned eleven deletions instead, which reads as
+  destroying approved work. Covers the four-character lead-in (a summary, not a slogan — and four
+  characters does not mean "upgrade it into a tidy couplet"), the persona rule for
+  non-engineering applications (drop the tech-stack line, keep AI tooling in the skills row),
+  one bold per bullet, and the layout-before-content rule: read page margins, font size and line
+  spacing and try 10pt / 13pt before deleting a single project.
+  Distinct from `resume-jd-matcher` (match against one JD) and `vibecoding-resume-story`
+  (turn one project into an entry).
+- `personal-tone-writing` (v1.0.0) — write in one specific person's voice. Step 0 is the boundary
+  rule, and it exists because of a real failure: asked to retrieve an old script, the search came
+  up empty and a fresh one was written in his voice instead — running an original through the voice
+  library **is** rewriting it, which defeats the retrieval. Then the punctuation bans
+  (dash, colon, semicolon, quotes), the anti-pivot sentence ban (`不是A而是B` more than once reads
+  as machine-written), jargon-to-plain-speech, identity-first openings, and the three delivery
+  shapes that actively disagree: written-test answers **require** 2-4 typos, spoken scripts and
+  internal docs **forbid** them. Spoken scripts fix duration first (4.5-5 chars/second) and must
+  land the reverse-play flip inside 5 seconds.
+- `session-log-archaeology` (v1.0.0) — dig an original artifact out of the user's own archives, in
+  order: dated memory notes → session logs → repo snapshots → workspace logs. Encodes the JSONL
+  shape traps that produce silent zero hits (`content` is a top-level field, block type is
+  `output_text`, not `text` — reading `obj["message"]["content"]` matches nothing forever), the
+  cross-machine gap that makes a session genuinely absent (logs are per machine; a clean afternoon
+  gap between two evening blocks means "other machine", not "never written"), and the rule that a
+  miss is reported rather than filled with a rewrite.
+  Distinct from `session-checkpoint` (writes a checkpoint) and `personal-secretary-memory`
+  (maintains the memory base).
+
+### Changed
+
+- `README.md` — job-search chain roll-up **9 → 10** with `resume-polish-craft` inserted after
+  `resume-jd-matcher`; three new scenario lines; skill badge and headline recounted from the
+  remote listing.
+
 ## 2026-10-22 — v1.5.0
 
 Skill count **24 → 25**.

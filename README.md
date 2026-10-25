@@ -1,13 +1,13 @@
 # AI 实用 Skill 库 · Practical AI Skills
 
-**25 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**28 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-25-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-28-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -57,6 +57,9 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 两台电脑各有一个记忆库，想合成一份 → `memory-sync-abc`
 - 想转一个全新的岗位方向，不知道人家到底要什么 → `career-pivot-research`
 - 检修老仓库，却不确定「main 还是旧版」这种说法还成不成立 → `github-repo-repair-audit`
+- 简历内容都对了，就是压不进一页、引导词太长、不知道哪句该加粗 → `resume-polish-craft`
+- 答案写得像 AI，要换成他本人说话的语气 → `personal-tone-writing`
+- 以前写过的稿子、脚本、版本找不到了 → `session-log-archaeology`
 
 ## Contents
 
@@ -92,6 +95,19 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   空模板没有 import，用手写数组栈；倒计时在走时先给完整答案再解释三行，不反问）
 - `career-pivot-research`: research whether a career pivot is viable before rewriting a resume for it — collect 5-8 real linkable JDs, derive three capability tiers (minimum bar / full match / beyond), find the project the user already owns but described in the wrong vocabulary, then ship a rewrite table with character-count deltas and a study plan with daily acceptance criteria.
   （转岗调研：先搜真实 JD 再谈匹配；三档能力分开看；最大杠杆是「你已经做了但用旧领域词汇描述」的那个项目；改完简历还要给每日可验收的学习计划）
+
+- `resume-polish-craft`: polish a resume whose content is already right — compress pages, tighten
+  bullet lead-ins to four characters, pick one sentence per bullet to bold, keep the persona on the
+  target function, and read the layout parameters before deleting anything.
+  （简历打磨：**标和删是两件事**，让你加粗就别顺手给删改方案；四字就是四字，不许升格成工整对仗；
+  投运营岗要弱化工程味，技术栈行删掉但 AI 工具留在技能栏；
+  **超页数先查页边距/字号/行距再谈删内容**，项目经历最后才动）
+- `personal-tone-writing`: write in one specific person's voice — punctuation bans, the anti-pivot
+  sentence ban, jargon translated to plain speech, identity-first openings, and the boundary rule for
+  when the voice library must not be applied. Three delivery shapes disagree: written-test answers
+  **require** 2-4 typos, spoken scripts and internal docs **forbid** them.
+  （个人语气库写作：破折号冒号分号引号全禁；`不是A而是B` 一篇最多一处；术语全禁、条目 3-5 条；
+  **他自己的原稿和要你翻出来的旧稿一律不许过语气库**；口播稿按 4.5-5 字/秒先定时长，反串钩子 5 秒内翻脸）
 
 ### Portfolio and publishing
 
@@ -140,6 +156,14 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - `memory-sync-abc`: keep one private GitHub repo as the always-latest superset of two or more machine-local memory vaults — whitelist gitignore, GitHub API fallback when git transport is blocked, and "check the remote, not your local log".
   （多机记忆同步：A/B/C 三库只增不删；代理环境下 git 不通改走 Git Data API；判断线上状态先查远端，本地 git log 会骗人）
 
+- `session-log-archaeology`: dig an original artifact out of the user's own archives — dated memory
+  notes, then session logs, then repo snapshots, then workspace logs. Records the JSONL shape traps
+  that produce silent zero hits, the cross-machine gap that makes a session genuinely absent, and the
+  rule that a miss must be reported rather than filled with a rewrite.
+  （会话考古：按「记忆 → 会话 jsonl → 私仓快照 → 工作区日志」顺序找；
+  **jsonl 的 content 是顶层字段、block type 是 output_text**，按 message.content 取会一直 0 命中；
+  日志按机器存，家侧/公司端有缺口是正常的；**翻不到就直说，不许拿重写填空**）
+
 ### Local tooling
 
 - `single-file-html-tool`: build and verify a zero-dependency single-file HTML tool (tracker, ledger, dashboard).
@@ -155,9 +179,9 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   **改已上线页面用字节级插入**、**删掉插入块必须等于原文件**；
   `node --check` 只查语法，抓不到首屏崩溃。附脚手架脚本）
 
-> 求职层共 9 个 skill，按投递链路分工，互不重叠：
+> 求职层共 10 个 skill，按投递链路分工，互不重叠：
 > `career-pivot-research` 想转什么方向 → `recruiting-source-hunting` 找链接 →
-> `job-application-screener` 决定投不投 → `resume-jd-matcher` 检查简历怎么改 →
+> `job-application-screener` 决定投不投 → `resume-jd-matcher` 检查简历怎么改 → `resume-polish-craft` 打磨措辞与版面 →
 > `job-application-tracker` 记录投了没 → `online-assessment-solver` 过笔试 →
 > `interview-debrief` 面完复盘 → `offer-decision-framework` 比较 Offer →
 > `vibecoding-resume-story` 把项目写进简历。
