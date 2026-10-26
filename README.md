@@ -29,7 +29,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 | 秋招信息记串、Offer 选不明白、项目是 AI 写的不敢写进简历 | `personal-secretary-memory`（求职层）+ `offer-decision-framework` + `vibecoding-resume-story` |
 | 作品集要改又要发，怕把线上搞挂 | `video-portfolio-performance` 看性能，`portfolio-github-workflow` 负责发布 |
 | AI 返回的东西不能直接用、流程想沉淀成技能 | `llm-output-eval-gate` + `workflow-distiller` |
-| GitHub Pages 国内打不开、要给别人分享 | `cf-pages-deploy` 一键镜像到 Cloudflare |
+| 确认当前网络打不开 GitHub Pages | `cf-pages-deploy` 换托管到 Cloudflare（⚠️ workers.dev 境内同样不通，见该 skill 勘误） |
 
 ## Scenarios
 
@@ -48,7 +48,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 面试录音/逐字稿，想看自己哪句话扣分 → `interview-debrief`
 - 给别人做付费面试诊断，要交一份能转发的 Word → `interview-debrief`（顾问模式）
 - 笔试倒计时里卡在一道算法题上 → `online-assessment-solver`
-- 国内打不开 GitHub Pages、想免注册给别人看 → `cf-pages-deploy`
+- 确认当前网络打不开 GitHub Pages、想换托管 → `cf-pages-deploy`（⚠️ 产物 workers.dev 境内直连不通，别当“免翻墙”发给外部的人）
 - 改了静态站但线上还是老样子 → `static-site-deploy-verify`
 - 要做一个能双击打开、能存数据、能导出的表/台账/看板 → `single-file-html-tool`
 - 台账里一堆公司名点不开、或者合并备份并出了重复公司 → `job-application-tracker`
