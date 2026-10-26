@@ -2,6 +2,52 @@
 
 All notable changes to this repository are documented here. Every skill carries a `version` field in its `SKILL.md` frontmatter.
 
+## 2026-10-26 — v1.7.0
+
+**Skill 数量不变，仍是 28** —— 本次是「更正一条错结论 + 升级一个 skill」，不是新增。
+
+### Fixed
+
+- **`cf-pages-deploy` 1.0.0 → 1.1.0：核心结论被实测推翻。**
+  v1.0.0 写「生成国内免翻墙可访问的 `*.workers.dev` 地址」「这就是国内免翻墙地址」
+  「workers.dev 电信联通秒开」—— 三句全错。2026-10-26 境内**直连、不挂任何代理**实测三个已部署子域，全部超时：
+
+  | 子域 | 解析到 |
+  |---|---|
+  | `talkcal.jinjiaxin2004.workers.dev` | 173.255.213.90 |
+  | `daypilot.jinjiaxin2004.workers.dev` | **31.13.96.195（Meta 的 IP 段，即被劫持）** |
+  | `ai-video-portfolio.jinjiaxin2004.workers.dev` | 67.228.235.91 |
+
+  同一时刻 `*.github.io` 184–698 ms 全 200。
+  **这个错误有真实代价**：作品集首页三个「在线版（免翻墙）」按钮 + 视频页 12 条成片的
+  `<video src>` 全挂在这些子域上 —— 面试官点开一条都播不了，页面还写着"免翻墙"。
+  原文不删，加顶部勘误块 + 三处原地更正（`~~删除线~~` 保留原句），并改写 description 与 README 索引行。
+
+### Changed
+
+- **`static-site-deploy-verify` 1.0.0 → 1.1.0：从"推完校验"扩成"发布前后全流程"。**
+  新增第一部分「推之前 —— 三轮体检」：
+  **链接轮**（本地相对链接 / **大小写一致性** / 绝对路径泄漏 / 外链**绕开本机代理**直连实测）、
+  **结构轮**（标签配平 / 重复 id / 锚点目标 / alt / title+viewport / 内联 JS 语法 / rel=noopener）、
+  **内容轮**（同一指标多值冲突 / 占位符残留）。
+  新增「可达性判定表」（`*.github.io` ✅ / `github.com` 慢且不稳 / `*.workers.dev` ❌ / gh-proxy 只代理 raw）、
+  「公开站 ≠ 打包件」的合法差异做法（`.replace()` + `assert count == 1` + 推后 diff 行数对账）、
+  以及「CHANGELOG 说改过 ≠ 真的改过」的翻车实录。
+
+### Added
+
+- `static-site-deploy-verify/scripts/preflight_audit.py` —— 上面三轮的可执行版：
+  `--root <站点目录>` 一把跑完，`--no-net` 跳过联网，`--json` 机器可读，
+  有死链 / 大小写 / JS 语法 / 绝对路径时退出码 1。
+  已在本仓作品集（11 页 / 65 条本地链接 / 18 条外链）实跑：**阻断 0 项**。
+
+### Verified this pass
+
+- 11 个页面：标签配平、重复 id、锚点目标、`data-goto` 目标、图片 alt、`<title>`、viewport、
+  内联脚本语法、`target=_blank` 的 `rel=noopener` —— 全部 0 问题
+- 18 条外链**直连**实测全 200（184–1304 ms）
+- 线上 `workers.dev` / `gh-proxy` 计数归零；Pages `built` 后加 `?v=` 复测通过
+
 ## 2026-10-25 — v1.6.0
 
 Skill count **25 → 28**.

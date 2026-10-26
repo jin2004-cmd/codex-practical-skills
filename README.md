@@ -188,10 +188,10 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 
 ### Deployment
 
-- `cf-pages-deploy`: deploy a static GitHub repo to Cloudflare Pages and get a China-accessible `*.workers.dev` URL with auto-redeploy on push. Records three dead ends (Gitee Pages permanently offline, gh-proxy only proxies raw files, local git push blocked by GFW 443) and the "Missing git connection" front-end cache gotcha.
-  （Cloudflare Pages 国内镜像标准流程：Build command 留空、Root `/`、F5 刷新解 Missing git connection；Gitee Pages / gh-proxy / 本地 git 443 三条死路别再试）
-- `static-site-deploy-verify`: after any static-site push, run one pass that catches "I updated it but the site still shows the old version" — missing pushes, local/remote content drift, Service Worker cache lists, HTML references, and PWA trinity.
-  （静态站推完校验：专治"缓存名 bump 了、文件内容还是旧的"版本撕裂；修复必须**推齐文件 + 再 bump 一次 CACHE** 两步一起做）
+- `cf-pages-deploy`: deploy a static GitHub repo to Cloudflare Pages and get a `*.workers.dev` URL with auto-redeploy on push. ⚠️ **Corrected 2026-10-26: `*.workers.dev` is DNS-poisoned in mainland China — direct connections time out.** The v1.0.0 claim of "China-accessible" was wrong and cost a real portfolio: three "no VPN needed" buttons and twelve `<video src>` pointed at it, and none of them opened. Still worth using for auto-redeploy, but the output is for self/VPN use only — host anything you send to an interviewer on `*.github.io`. Records three dead ends (Gitee Pages permanently offline, gh-proxy only proxies raw files, local git push blocked by GFW 443) and the "Missing git connection" front-end cache gotcha.
+  （Cloudflare Pages 标准流程：Build command 留空、Root `/`、F5 刷新解 Missing git connection；Gitee Pages / gh-proxy / 本地 git 443 三条死路别再试。**勘误：workers.dev 境内直连不通，别再当"国内镜像"用**）
+- `static-site-deploy-verify`: the static-site checklist for **before and after** a push. Before: a three-round preflight (links / structure / content) — dead links, **case-sensitive path mismatches that only break on Linux**, absolute-path leaks, and every external link probed **with the local proxy bypassed** (`ProxyHandler({})`), because "opens through my proxy" is not "opens for them". After: the version-tear pass — missing pushes, local/remote content drift, Service Worker cache lists, HTML references, PWA trinity. Includes a reachability verdict table for mainland China and `scripts/preflight_audit.py`.
+  （静态站发布前**三轮体检** + 推完校验：死链/大小写/外链直连实测；"缓存名 bump 了、文件内容还是旧的"版本撕裂；修复必须**推齐文件 + 再 bump 一次 CACHE** 两步一起做）
 
 ## Before / After
 
