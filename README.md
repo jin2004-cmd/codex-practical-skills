@@ -50,6 +50,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 - 笔试倒计时里卡在一道算法题上 → `online-assessment-solver`
 - 确认当前网络打不开 GitHub Pages、想换托管 → `cf-pages-deploy`（⚠️ 产物 workers.dev 境内直连不通，别当“免翻墙”发给外部的人）
 - 改了静态站但线上还是老样子 → `static-site-deploy-verify`
+- 页面链接都对但就是「难看」，怀疑是图本身有问题（黑边 / 压字 / 选帧不对） → `static-site-deploy-verify` 第四轮
 - 要做一个能双击打开、能存数据、能导出的表/台账/看板 → `single-file-html-tool`
 - 台账里一堆公司名点不开、或者合并备份并出了重复公司 → `job-application-tracker`
 - 不知道某家公司的官方校招投递页在哪、JD 是不是过期的 → `recruiting-source-hunting`
@@ -190,7 +191,7 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
 
 - `cf-pages-deploy`: deploy a static GitHub repo to Cloudflare Pages and get a `*.workers.dev` URL with auto-redeploy on push. ⚠️ **Corrected 2026-10-26: `*.workers.dev` is DNS-poisoned in mainland China — direct connections time out.** The v1.0.0 claim of "China-accessible" was wrong and cost a real portfolio: three "no VPN needed" buttons and twelve `<video src>` pointed at it, and none of them opened. Still worth using for auto-redeploy, but the output is for self/VPN use only — host anything you send to an interviewer on `*.github.io`. Records three dead ends (Gitee Pages permanently offline, gh-proxy only proxies raw files, local git push blocked by GFW 443) and the "Missing git connection" front-end cache gotcha.
   （Cloudflare Pages 标准流程：Build command 留空、Root `/`、F5 刷新解 Missing git connection；Gitee Pages / gh-proxy / 本地 git 443 三条死路别再试。**勘误：workers.dev 境内直连不通，别再当"国内镜像"用**）
-- `static-site-deploy-verify`: the static-site checklist for **before and after** a push. Before: a three-round preflight (links / structure / content) — dead links, **case-sensitive path mismatches that only break on Linux**, absolute-path leaks, and every external link probed **with the local proxy bypassed** (`ProxyHandler({})`), because "opens through my proxy" is not "opens for them". After: the version-tear pass — missing pushes, local/remote content drift, Service Worker cache lists, HTML references, PWA trinity. Includes a reachability verdict table for mainland China and `scripts/preflight_audit.py`.
+- `static-site-deploy-verify`: the static-site checklist for **before and after** a push. Before: a preflight in three mandatory rounds (links / structure / content) plus an optional fourth for image assets — dead links, **case-sensitive path mismatches that only break on Linux**, absolute-path leaks, and every external link probed **with the local proxy bypassed** (`ProxyHandler({})`), because "opens through my proxy" is not "opens for them". After: the version-tear pass — missing pushes, local/remote content drift, Service Worker cache lists, HTML references, PWA trinity. Includes a reachability verdict table for mainland China and `scripts/preflight_audit.py`.
   （静态站发布前**三轮体检** + 推完校验：死链/大小写/外链直连实测；"缓存名 bump 了、文件内容还是旧的"版本撕裂；修复必须**推齐文件 + 再 bump 一次 CACHE** 两步一起做）
 
 ## Before / After

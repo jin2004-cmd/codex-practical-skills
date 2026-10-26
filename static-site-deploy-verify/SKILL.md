@@ -1,7 +1,7 @@
 ---
 name: static-site-deploy-verify
 description: 静态站（GitHub Pages / Cloudflare Pages / 任意 CDN）发布前后的全流程校验。推之前跑三轮体检（链接 / 结构 / 内容），推之后抓「缓存名 bump 了但文件内容还是旧的」这类版本撕裂，并判定「打不开到底是墙、DNS 污染、公司网络还是站真挂了」。适用于「帮我确认线上是不是最新的」「我改了但线上还是老样子」「作品集要发给面试官了，先体检一遍」「这个链接国内能打开吗」。
-version: 1.1.0
+version: 1.2.0
 ---
 
 # 静态站发布前后校验
@@ -176,6 +176,64 @@ nslookup <domain>
 - 解析到 **31.13.x / 2a03:2880:** → 这是 **Meta/Facebook 的 IP 段**，说明 DNS 被劫持/污染，**不代表站点故障**
 - 全部超时 → 换手机流量或非公司网再验一次再说
 
+---
+
+# 第四轮 · 图像素材（可选，但做过就回不去）
+
+CSS/链接都对，页面还是"难看"，八成是图的问题。这一轮查的是**图片本身**，不是代码。
+
+## 1. ffmpeg crop 超出源尺寸会静默补黑边
+
+`crop=2560:1000:0:180` 打在 1920×1080 的源上，ffmpeg **不报错**，直接给你一张
+带黑边的图。实测就这样踩过：成品 1600×900 里有 **207 行纯黑**（占 23%）。
+
+```python
+# 抽帧前先确认源的真实尺寸，别凭记忆写 crop 参数
+subprocess.run([FF, "-i", SRC], capture_output=True)   # 从 stderr 读 Stream #0:0
+```
+
+**任何 crop 参数里的 w/h 都必须 ≤ 源尺寸**，写之前先打印一次源尺寸。
+
+## 2. 源片自己可能就带 letterbox
+
+就算 crop 参数没写错，源视频本身也可能是上下带黑边的（成片 1080p、内容只有 933 行）。
+肉眼在暗色背景页上看不出来——深色页面会把黑边吃掉。按行亮度剖面找出来：
+
+```python
+import numpy as np
+from PIL import Image
+a = np.asarray(Image.open(f).convert("L"), dtype=np.float32)
+rows = a.mean(axis=1)
+def band(rng, thr=26):
+    out = []
+    for y in rng:
+        if rows[y] < thr: out.append(y)
+        elif out: break
+    return out
+top, bot = band(range(len(rows))), band(range(len(rows)-1, -1, -1))
+y0, y1 = top[-1]+3, bot[-1]-3          # 内容行区间
+h = y1-y0+1
+w = min(W, int(round(h*16/9)))          # 再按目标比例回推宽度
+im.crop(((W-w)//2, y0, (W-w)//2+w, y1)) # 居中取窗口
+```
+
+交付前自检：`(rows<26).sum()` 必须为 0，`mean` 落在 80–120 之间最稳。
+
+## 3. 选帧：先扫全片再定，别抽三张就拍
+
+一次性 `range(6, duration, 4)` 抽 20+ 帧拼成对比图（2 列 × N 行），
+同时算每帧 mean 与"顶/底 150 行有没有文字峰"，再让视觉模型挑。
+省下的不是时间，是来回返工的三轮。
+
+## 4. 截图 OCR 会失真，数字必须回源文件核对
+
+让视觉模型看截图评估排版很好用，但**它读出来的文字不能当事实**。
+实测同一张图把「全部 10」读成「全部 5」、把「SOP · 过程文档」读成「SOP · 流程文档」。
+**凡是截图里读到的数字、专有名词，一律回源文件 grep 一遍再改**——
+否则会把对的改错（这条跟"我没验证过 ≠ 它是错的"是同一个坑）。
+
+---
+
 ## Example
 
 > 用户：「我更新了 TalkCal 的 css，但线上还是老样子。」
@@ -207,4 +265,7 @@ nslookup <domain>
 - 改 `sw.js` 缓存名但忘记推文件内容 = 白改；推了内容但忘记 bump = 用户端还是旧的
 - Pages `built` 之后 CDN 仍可能滞后几十秒
 - JSON-LD 不是 JS，别丢给 `node --check`
+- **ffmpeg crop 的 w/h 超出源尺寸不报错，只补黑边**；先打 `-i` 读源尺寸再写 crop
+- 源片可能自带 letterbox，暗色网页会把黑边吃掉，必须按行亮度剖面查
+- 视觉模型读截图里的数字会失真，**回源文件核对后再动手改**
 - 本地 git 历史与线上 API commit 分叉（如 `ahead 1`）时，先确认内容一致再决定是否 `git reset --hard origin/main`
