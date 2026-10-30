@@ -1,13 +1,13 @@
 # AI 实用 Skill 库 · Practical AI Skills
 
-**28 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
+**31 ready-to-use Codex / Claude Agent skills for the four things AI assistants keep getting wrong: mixing up facts, deciding on impulse, overwriting a live site, and shipping unvalidated LLM output.**
 
 Zero dependency · Privacy-safe · Copy one folder and it works.
 
 **四件事**：事实记串 · 决策拍脑袋 · 发布覆盖线上 · LLM 输出没校验。
 [跳到安装](#install) · [按场景找 skill](#scenarios)
 
-[![Skills](https://img.shields.io/badge/skills-28-blue)](#contents)
+[![Skills](https://img.shields.io/badge/skills-31-blue)](#contents)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
 [![Zero dependency](https://img.shields.io/badge/runtime%20dependency-none-green)](#install)
 [![Privacy](https://img.shields.io/badge/privacy-no%20personal%20data-brightgreen)](#privacy)
@@ -109,6 +109,13 @@ Zero dependency · Privacy-safe · Copy one folder and it works.
   **require** 2-4 typos, spoken scripts and internal docs **forbid** them.
   （个人语气库写作：破折号冒号分号引号全禁；`不是A而是B` 一篇最多一处；术语全禁、条目 3-5 条；
   **他自己的原稿和要你翻出来的旧稿一律不许过语气库**；口播稿按 4.5-5 字/秒先定时长，反串钩子 5 秒内翻脸）
+
+- `campus-jobs-radar`: when given a company's JD screenshot, pull the company's FULL current campus-recruiting job list and triage every role — never judge from the screenshots alone.
+  （校招岗位雷达：绝不只看截图里那几个岗，必须先拉全量矩阵再排序；附 mokahr / 飞书 / 官网 拉列表方法，必查投递上限、内推码、笔试形态、公司风险）
+- `resume-jd-tailor`: tailor a resume to one JD — pick the right base version, then rewrite only the objective, strengths and skills block, keeping the length within ±10% so it still fits one page.
+  （JD 对版微调：从母版出发，只改求职意向 / 个人优势 / 技能栏；字数持平保一页；含数据口径与"绝对禁止"清单）
+- `company-risk-check`: pre-application company risk scan — regulatory penalties, collapsing earnings, complaint clusters, and what the business actually sells, with red lines that mean "do not apply".
+  （投递前公司风险速查：监管处罚 / 业绩塌方 / 投诉 / 业务模式本质四类；停新整顿、利润腰斩、股价腰斩等红线直接不投）
 
 ### Portfolio and publishing
 
